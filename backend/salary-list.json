@@ -1,0 +1,70 @@
+{
+  "levels": [
+    {
+      "key": "kindergarten",
+      "name": "Kindergarten",
+      "ratePerMinute": 0.20,
+      "ratePer5Minute": 1.00,
+      "ratePer15Minute": 3.00,
+      "ratePer30Minute": 6.00,
+      "ratePerDay": 96.00,
+      "ratePerMonth": 2112.00,
+      "ratePerYear": 25344.00
+    },
+    {
+      "key": "primary2",
+      "name": "Primary 2",
+      "ratePerMinute": 0.22,
+      "ratePer5Minute": 1.10,
+      "ratePer15Minute": 3.30,
+      "ratePer30Minute": 6.60,
+      "ratePerDay": 105.60,
+      "ratePerMonth": 2323.20,
+      "ratePerYear": 27878.40
+    },
+    {
+      "key": "primary4",
+      "name": "Primary 4",
+      "ratePerMinute": 0.24,
+      "ratePer5Minute": 1.20,
+      "ratePer15Minute": 3.60,
+      "ratePer30Minute": 7.20,
+      "ratePerDay": 115.20,
+      "ratePerMonth": 2534.40,
+      "ratePerYear": 30412.80
+    },
+    {
+      "key": "primary6",
+      "name": "Primary 6",
+      "ratePerMinute": 0.28,
+      "ratePer5Minute": 1.40,
+      "ratePer15Minute": 4.20,
+      "ratePer30Minute": 8.40,
+      "ratePerDay": 134.40,
+      "ratePerMonth": 2956.80,
+      "ratePerYear": 35481.60
+    },
+    {
+      "key": "secondary",
+      "name": "Secondary",
+      "ratePerMinute": 0.35,
+      "ratePer5Minute": 1.75,
+      "ratePer15Minute": 5.25,
+      "ratePer30Minute": 10.50,
+      "ratePerDay": 168.00,
+      "ratePerMonth": 3696.00,
+      "ratePerYear": 44352.00
+    },
+    {
+      "key": "gymnasium",
+      "name": "Gymnasium",
+      "ratePerMinute": 0.40,
+      "ratePer5Minute": 2.00,
+      "ratePer15Minute": 6.00,
+      "ratePer30Minute": 12.00,
+      "ratePerDay": 192.00,
+      "ratePerMonth": 4224.00,
+      "ratePerYear": 50688.00
+    }
+  ]
+}

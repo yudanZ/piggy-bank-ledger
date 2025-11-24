@@ -1,0 +1,54 @@
+{
+  "earnings": [
+    {
+      "kidName": "Yoyo",
+      "task": "Helping my sister with her homework",
+      "minutes": 30,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-13",
+      "earnedAmount": 10.5,
+      "id": 1763063149193,
+      "createdAt": "2025-11-13T19:45:49.193Z"
+    },
+    {
+      "kidName": "Yoyo",
+      "task": "Cleaning bath room",
+      "minutes": 40,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-12",
+      "earnedAmount": 14,
+      "id": 1763064863001,
+      "createdAt": "2025-11-13T20:14:23.001Z"
+    },
+    {
+      "kidName": "Mijia",
+      "task": "Hilf Mama beim Vorbereiten des Abendessens",
+      "minutes": 30,
+      "salaryLevel": "Primary 2",
+      "date": "2025-11-06",
+      "earnedAmount": 6.6,
+      "id": 1763064949593,
+      "createdAt": "2025-11-13T20:15:49.593Z"
+    },
+    {
+      "kidName": "Yoyo",
+      "task": "Make dinner for my sister",
+      "minutes": 40,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-14",
+      "earnedAmount": 14,
+      "id": 1763138458618,
+      "createdAt": "2025-11-14T16:40:58.618Z"
+    },
+    {
+      "kidName": "Mijia",
+      "task": "Räum mein Zimmer auf",
+      "minutes": 30,
+      "salaryLevel": "Primary 2",
+      "date": "2025-02-09",
+      "earnedAmount": 6.6,
+      "id": 1763226898686,
+      "createdAt": "2025-11-15T17:14:58.686Z"
+    }
+  ]
+}
