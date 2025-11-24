@@ -1,0 +1,67 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+
+# -----------------------------
+# 🎯 Global ignores
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Node environment files
+.env
+.env.*
+
+
+# -----------------------------
+# 🅰️ Angular / Frontend ignores
+# -----------------------------
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vscode/
+frontend/.idea/
+frontend/.cache/
+frontend/package-lock.json
+frontend/yarn.lock
+
+# Angular build artifacts
+frontend/.angular/cache/
+frontend/.angular/config/
+frontend/.angular/local/
+
+
+# -----------------------------
+# 🅱️ Backend ignores (Node.js)
+# -----------------------------
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/tmp/
+backend/.env
+backend/.vscode/
+backend/.idea/
+backend/npm-debug.log*
+
+# Optional (if backend has logs or uploads)
+backend/logs/
+backend/uploads/
+
+
+# -----------------------------
+# 🔧 IDE & Tooling
+# -----------------------------
+.vscode/
+.idea/
+*.iml
