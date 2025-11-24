@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h4>{{ isEditing ? 'Edit' : 'Add' }} Wish </h4>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label>Wish</label>
+        <input type="text" class="form-control" formControlName="wish" />
+      </div>
+
+      <div class="mb-3">
+        <label>Price (CHF)</label>
+        <input type="number" class="form-control" formControlName="price" />
+      </div>
+
+      <div class="mb-3">
+        <label>Where to Buy</label>
+        <input type="text" class="form-control" formControlName="whereToBuy" />
+      </div>
+
+      <div class="mb-3">
+        <label>Expected Date</label>
+        <input type="date" class="form-control" formControlName="expectedDate" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update Wish' : 'Add Wish' }}</button>
+    </form>
+  </div>
+</div>

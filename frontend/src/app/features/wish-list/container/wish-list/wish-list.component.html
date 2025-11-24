@@ -1,0 +1,32 @@
+<div class="container mt-4">
+ @if(!kidName()) {
+   <div class="card p-4 mb-4">
+     <h4>Search Kid's Wish List</h4>
+     <form [formGroup]="searchForm" (ngSubmit)="submitSearch()">
+       <div class="mb-3">
+         <input type="text" class="form-control" placeholder="Enter kid's name" formControlName="kidNameInput">
+       </div>
+       <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">Search</button>
+     </form>
+   </div>
+ } @else if (wishes().length) {
+   <app-wish-list-table
+     [kidName]="kidName()"
+     [wishes]="wishes()"
+     [totalEarned]="totalEarned()"
+     (addWish)="addWish()"
+     (editWish)="editWish($event)"
+     (removeWish)="removeWish($event)"
+   ></app-wish-list-table>
+ } @else {
+   <div  class="alert alert-info p-4 text-center">
+     <h5>No wishes found for {{ kidName() }}.</h5>
+     <p>
+       <button class="btn btn-sm btn-primary mt-2" (click)="addWish()">🪄 Add a wish  for {{ kidName() }} </button>
+     </p>
+   </div>
+ }
+
+
+
+</div>

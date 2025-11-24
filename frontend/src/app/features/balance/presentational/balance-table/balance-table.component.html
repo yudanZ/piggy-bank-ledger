@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <h3 class="mb-3">
+    🧮 {{ kidName() }}'s Full Balance Overview
+  </h3>
+
+  <h4 class="mt-4">🟩 Earnings</h4>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Task</th>
+      <th>Minutes</th>
+      <th>Earned (CHF)</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (task of earningList(); track task.id) {
+        <tr>
+          <td>{{ task.date }}</td>
+          <td>{{ task.task }}</td>
+          <td>{{ task.minutes }}</td>
+          <td>{{ task.earnedAmount | number: '1.2-2' }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2"
+                    (click)="editEarning.emit(task)">
+              ✏️ Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger"
+                    (click)="deleteEarning.emit(task)">
+              🗑️ Delete
+            </button>
+          </td>
+        </tr>
+      }
+
+    <tr class="fw-bold bg-light">
+      <td colspan="2" class="text-end">Total Earned:</td>
+      <td>{{ totalMinutes() }}</td>
+      <td>💰 {{ totalEarned() | number: '1.2-2' }} CHF</td>
+      <td colspan="2"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h4 class="mt-4">🟥 Spending</h4>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Item</th>
+      <th>Store</th>
+      <th>Price (CHF)</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (item of spendingList(); track item.id) {
+        <tr>
+          <td>{{ item.date }}</td>
+          <td>{{ item.item }}</td>
+          <td>{{ item.store }}</td>
+          <td>-{{ item.price | number: '1.2-2' }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2"
+                    (click)="editSpending.emit(item)">
+              ✏️ Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger"
+                    (click)="deleteSpending.emit(item)">
+              🗑️ Delete
+            </button>
+          </td>
+        </tr>
+      }
+
+    <tr class="fw-bold bg-light">
+      <td colspan="3" class="text-end">Total Spent:</td>
+      <td>🛍️ {{ totalSpent() | number: '1.2-2' }} CHF</td>
+      <td colspan="2"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-info p-4 text-center mt-4">
+    <h3>
+      🧾 Current Balance:
+      <span class="fw-bold"
+            [class.text-success]="balance() >= 0"
+            [class.text-danger]="balance() < 0">
+        {{ balance() | number:'1.2-2' }} CHF
+      </span>
+    </h3>
+  </div>
+</div>

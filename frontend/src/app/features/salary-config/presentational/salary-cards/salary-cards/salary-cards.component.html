@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="row justify-content-center g-4">
+    @for (level of levels(); track $index) {
+      <div class="col-12 col-md-6 col-lg-5">
+        <div class="card h-100 shadow-lg border-0 rounded-4">
+          <div class="card-body text-center p-4">
+            <h4 class="card-title text-primary fw-bold mb-3">{{ level.name }}</h4>
+
+            <p class="card-text fs-5 mb-3">
+              <strong>Per Minute:</strong>
+              <span class="text-success">{{ level.ratePerMinute | number:'1.2-2' }} CHF</span>
+            </p>
+
+            <button
+              class="btn btn-outline-primary px-4 py-2"
+              type="button"
+              data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse' + $index"
+              aria-expanded="false"
+              [attr.aria-controls]="'collapse' + $index"
+            >
+              Show All Rates
+            </button>
+
+            <div class="collapse mt-4" [attr.id]="'collapse' + $index">
+              <ul class="list-group list-group-flush text-start">
+                <li class="list-group-item">
+                  <strong>Per 5 Minutes:</strong>
+                  {{ level.ratePer5Minute | number:'1.2-2' }} CHF
+                </li>
+                <li class="list-group-item">
+                  <strong>Per 15 Minutes:</strong>
+                  {{ level.ratePer15Minute | number:'1.2-2' }} CHF
+                </li>
+                <li class="list-group-item">
+                  <strong>Per 30 Minutes:</strong>
+                  {{ level.ratePer30Minute | number:'1.2-2' }} CHF
+                </li>
+                <li class="list-group-item">
+                  <strong>Per Day:</strong>
+                  {{ level.ratePerDay | number:'1.2-2' }} CHF
+                </li>
+                <li class="list-group-item">
+                  <strong>Per Month:</strong>
+                  {{ level.ratePerMonth | number:'1.2-2' }} CHF
+                </li>
+                <li class="list-group-item">
+                  <strong>Per Year:</strong>
+                  {{ level.ratePerYear | number:'1.2-2' }} CHF
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <div class="card p-4 shadow-lg">
+    <h4>🛒 {{ isEditing ? 'Edit' : 'Add' }} Spending</h4>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label class="form-label fw-bold">Name</label>
+        <input type="text" class="form-control" formControlName="kidName" placeholder="Enter your name">
+      </div>
+
+
+      <label class="form-label fw-bold">Item</label>
+      <input formControlName="item" class="form-control mb-3" placeholder="What did you buy?">
+
+      <label class="form-label fw-bold">Store</label>
+      <input formControlName="store" class="form-control mb-3" placeholder="Where did you buy it?">
+
+      <label class="form-label fw-bold">Price (CHF)</label>
+      <input type="number" formControlName="price" class="form-control mb-3">
+
+      <label class="form-label fw-bold">Date</label>
+      <input type="date" formControlName="date" class="form-control mb-3">
+
+      <button class="btn btn-danger" [disabled]="form.invalid">Save Spending</button>
+    </form>
+  </div>
+</div>
