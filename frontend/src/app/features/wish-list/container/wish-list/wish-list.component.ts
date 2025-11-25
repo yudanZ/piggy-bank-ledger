@@ -6,6 +6,7 @@ import { CommonModule, AsyncPipe } from '@angular/common';
 import { WishListTableComponent } from '../../presentational/wish-list-table/wish-list-table.component';
 import { WishListService } from '../../services/wish-list.service';
 import { Wish } from '../../modals/wish-list.models';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -19,6 +20,7 @@ export class WishListComponent implements OnInit {
   private _destroy = inject(DestroyRef);
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
+  private _toastService = inject(ToastService);
 
   public kidName = signal('');
   public wishes = signal<Wish[]>([]);
@@ -49,7 +51,15 @@ export class WishListComponent implements OnInit {
   }
 
   public editWish(wish: Wish) {
-    this._router.navigate(['/kids', this.kidName(), 'edit-wish', wish.id]);
+    this._wishListService
+      .updateWish$(wish.id, wish)
+      .pipe(takeUntilDestroyed(this._destroy))
+      .subscribe({
+        next: () => {
+          this._toastService.success('Wish has been updated successfully.');
+        },
+        error: (err) => this._toastService.error(err.message),
+      });
   }
 
   public removeWish(wish: Wish) {

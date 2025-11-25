@@ -6,9 +6,9 @@
     </button>
   </div>
 
-  @if(wishes().length) {
-      <table class="table table-striped">
-        <thead>
+  @if(updatedlWishes().length) {
+    <p-table [value]="updatedlWishes()" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template #header>
         <tr>
           <th>Wish</th>
           <th>Price</th>
@@ -17,23 +17,130 @@
           <th>Purchased?</th>
           <th></th>
         </tr>
-        </thead>
-        <tbody>
-        @for(wish of wishes(); track wish) {
-          <tr>
-            <td>{{ wish.wish }}</td>
-            <td>💰 {{ wish.price | number:'1.2-2' }}</td>
-            <td>{{ wish.whereToBuy || '-' }}</td>
-            <td>{{ wish.expectedDate }}</td>
-            <td>{{wish.obtained}}</td>
-            <td>
-              <button class="btn btn-sm btn-warning me-2" (click)="editWish.emit(wish)">✏️ Edit</button>
-            </td>
-            <td> <button class="btn btn-sm btn-danger" (click)="removeWish.emit(wish)">🗑️ Delete</button></td>
-          </tr>
-        }
-        </tbody>
-      </table>
+      </ng-template>
+      <ng-template #body let-wish let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="wish">
+          <td>
+            <p-cellEditor>
+              <ng-template #input>
+                <input
+                  pInputText type="text"
+                  [(ngModel)]="wish.wish" />
+              </ng-template>
+              <ng-template #output>
+                {{wish.wish}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template #input>
+                <input
+                  pInputText type="text"
+                  [(ngModel)]="wish.price"
+                  required />
+              </ng-template>
+              <ng-template #output>
+                {{wish.price | number:'1.2-2'}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template #input>
+                <input
+                  pInputText type="text"
+                  [(ngModel)]="wish.whereToBuy"
+                  required />
+              </ng-template>
+              <ng-template #output>
+                {{wish.whereToBuy || '-'}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template #input>
+                <input
+                  pInputText type="text"
+                  [(ngModel)]="wish.expectedDate"
+                  required />
+              </ng-template>
+              <ng-template #output>
+                {{wish.expectedDate}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template #input>
+                <p-select
+                  [options]="purchasedStatuses"
+                  appendTo="body"
+                  [(ngModel)]="wish.bought"
+                  [style]="{'width':'100%'}" />
+              </ng-template>
+              <ng-template #output>
+                <p-tag
+                  [value]="wish.bought ? 'Yes' : 'No'"
+                  [severity]="wish.bought ? 'success' : 'warn'" />
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td>
+            <div class="flex items-center justify-center gap-2">
+              @if(!editing) {
+                <button
+                  pButton
+                  pInitEditableRow
+                  pRipple
+                  type="button"
+                  class="p-button-text p-button-rounded p-button-secondary"
+                  (click)="onRowEditInit(wish)"
+                >
+                  <i class="pi pi-pencil"></i>
+                </button>
+              }
+              @else {
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  pSaveEditableRow
+                  icon="pi pi-check"
+                  (click)="editWish.emit(wish)"
+                  text
+                  rounded
+                  severity="secondary"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  pCancelEditableRow
+                  icon="pi pi-times"
+                  (click)="onRowEditCancel(wish)"
+                  text
+                  rounded
+                  severity="secondary"
+                ></button>
+              }
+              <button
+                pButton
+                pRipple
+                type="button"
+                class="p-button-text p-button-rounded p-button-secondary"
+                (click)="removeWish.emit(wish)"
+              >
+                <i class="pi pi-trash"></i>
+              </button>
+
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
 
   } @else {
     <div class="alert alert-info p-4 text-center">
@@ -42,6 +149,7 @@
     </div>
   }
 </div>
+
 
 
 
