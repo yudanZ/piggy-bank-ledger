@@ -4,12 +4,11 @@
       "kidName": "Yoyo",
       "wish": "24-color Magic Markers",
       "price": 12.5,
-      "bought": false,
+      "bought": true,
       "whereToBuy": "Coop City / Amazon",
       "expectedDate": "2025-12-30",
       "id": 1763321122296,
-      "createdAt": "2025-11-16T19:25:22.296Z",
-      "obtained": false
+      "createdAt": "2025-11-16T19:25:22.296Z"
     },
     {
       "kidName": "Mijia",
@@ -19,8 +18,7 @@
       "whereToBuy": "Orell Füssli / Amazon",
       "expectedDate": "2025-11-29",
       "id": 1763322152619,
-      "createdAt": "2025-11-16T19:42:32.619Z",
-      "obtained": false
+      "createdAt": "2025-11-16T19:42:32.619Z"
     }
   ]
 }

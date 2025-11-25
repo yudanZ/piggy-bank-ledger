@@ -216,7 +216,6 @@ app.post("/api/wish-list", (req, res) => {
             ...newWish,
             id: Date.now(),
             createdAt: new Date().toISOString(),
-            obtained: false,
         });
 
         fs.writeFile(WISHLIST_FILE, JSON.stringify(json, null, 2), (writeErr) => {
