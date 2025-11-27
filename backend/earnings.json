@@ -49,6 +49,16 @@
       "earnedAmount": 6.6,
       "id": 1763226898686,
       "createdAt": "2025-11-15T17:14:58.686Z"
+    },
+    {
+      "kidName": "Yoyo",
+      "task": "Clean the room",
+      "minutes": 30,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-26",
+      "earnedAmount": 10.5,
+      "id": 1764145077784,
+      "createdAt": "2025-11-26T08:17:57.784Z"
     }
   ]
 }

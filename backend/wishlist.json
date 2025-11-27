@@ -4,7 +4,7 @@
       "kidName": "Yoyo",
       "wish": "24-color Magic Markers",
       "price": 12.5,
-      "bought": true,
+      "bought": false,
       "whereToBuy": "Coop City / Amazon",
       "expectedDate": "2025-12-30",
       "id": 1763321122296,
