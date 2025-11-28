@@ -29,7 +29,7 @@
         <label class="form-label fw-bold">Salary Level</label>
         <select class="form-select" formControlName="salaryLevel">
           <option value="" disabled>Select your level</option>
-          @for(level of levels; track $index) {
+          @for(level of addEarningStore.salaryLevels(); track $index) {
             <option [value]="level.name">
               {{ level.name }} ({{ level.ratePerMinute }} CHF/min)
             </option>
@@ -38,9 +38,9 @@
         </select>
       </div>
 
-    @if(earnedAmount){
+    @if(addEarningStore.earnedAmount(); as earnedAmount) {
       <div  class="alert alert-success fw-bold text-center">
-        💰 You earned: {{ earnedAmount | number:'1.2-2' }} CHF
+        💰 You earned: {{  earnedAmount | number:'1.2-2' }} CHF
       </div>
     }
       <div class="text-center">

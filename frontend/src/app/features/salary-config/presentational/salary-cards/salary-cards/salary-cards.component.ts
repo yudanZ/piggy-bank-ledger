@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {SalaryLevel} from "../../../modals/salary-level.models";
+import {SalaryLevel} from "../../../../../shared/models/salary-level.models";
 import {DecimalPipe} from "@angular/common";
 
 @Component({

@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {SalaryLevel} from "../modals/salary-level.models";
+import {SalaryLevel} from "./models/salary-level.models";
 
 
 @Injectable({ providedIn: 'root' })

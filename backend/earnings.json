@@ -59,6 +59,26 @@
       "earnedAmount": 10.5,
       "id": 1764145077784,
       "createdAt": "2025-11-26T08:17:57.784Z"
+    },
+    {
+      "kidName": "Yoyo",
+      "task": "Cleaned my romm",
+      "minutes": 20,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-27",
+      "earnedAmount": 7,
+      "id": 1764335926855,
+      "createdAt": "2025-11-28T13:18:46.855Z"
+    },
+    {
+      "kidName": "Yoyo",
+      "task": "some task1111222",
+      "minutes": 30,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-20",
+      "earnedAmount": 10.5,
+      "id": 1764336048105,
+      "createdAt": "2025-11-28T13:20:48.105Z"
     }
   ]
 }

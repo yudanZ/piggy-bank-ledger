@@ -1,110 +1,65 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SalaryService } from '../../../salary-config/services/salary.service';
+import { Component, effect, inject, input, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
-import { SalaryLevel } from '../../../salary-config/modals/salary-level.models';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EarningService } from '../../services/earning.service';
-import { WorkEntry } from '../../modals/earning.model';
-import { ToastService } from '../../../../core/services/toast.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { AddEarningStore } from './add-earning.store';
 
 @Component({
   selector: 'app-add-earning',
   templateUrl: './add-earning.component.html',
   imports: [ReactiveFormsModule, DecimalPipe],
+  providers: [AddEarningStore],
 })
 export class AddEarningComponent implements OnInit {
   private _fb = inject(FormBuilder);
-  private _salaryService = inject(SalaryService);
-  private _workEntryService = inject(EarningService);
-  private _toastService = inject(ToastService);
-  private _destroy = inject(DestroyRef);
-  private _route = inject(ActivatedRoute);
-  private _router = inject(Router);
 
-  public form!: FormGroup;
-  public earnedAmount = 0;
-  public levels: SalaryLevel[] = [];
+  public kidName = input<string>('');
+  public entryId = input<string>('');
 
-  private _isUpdated = false;
-  private _entryId!: number;
+  public addEarningStore = inject(AddEarningStore);
 
-  public ngOnInit() {
-    this.form = this._fb.group({
-      kidName: ['', Validators.required],
-      task: ['', Validators.required],
-      minutes: [0, [Validators.required, Validators.min(1)]],
-      salaryLevel: ['', Validators.required],
-      date: ['', Validators.required],
+  public form = this._fb.group({
+    kidName: this._fb.nonNullable.control('', Validators.required),
+    task: this._fb.nonNullable.control('', Validators.required),
+    minutes: this._fb.nonNullable.control(0, [Validators.required, Validators.min(1)]),
+    salaryLevel: this._fb.nonNullable.control('', Validators.required),
+    date: this._fb.nonNullable.control('', Validators.required),
+  });
+
+  constructor() {
+    effect(() => {
+      const loeadedEntry = this.addEarningStore.workEntry();
+
+      this.form.patchValue(loeadedEntry);
     });
 
-    const kidNameFromRoute = this._route.snapshot.paramMap.get('kidName');
+    effect(() => {
+      const kidName = this.addEarningStore.kidName();
 
-    this._entryId = Number(this._route.snapshot.paramMap.get('entryId'));
+      this.form.patchValue({ kidName: kidName });
+    });
+  }
 
-    if (kidNameFromRoute) {
-      this.form.patchValue({ kidName: kidNameFromRoute });
+  public ngOnInit() {
+    if (this.kidName()) {
+      this.addEarningStore.setKidName(this.kidName());
     }
 
-    if (this._entryId) {
-      this._isUpdated = true;
-      this.loadEntryForEdit(kidNameFromRoute!, this._entryId);
+    if (this.entryId()) {
+      this.addEarningStore.loadWorkEntry({ kidName: this.kidName(), entryId: this.entryId() });
     }
-
-    this._salaryService
-      .getLevels$()
-      .pipe(takeUntilDestroyed(this._destroy))
-      .subscribe((levels) => (this.levels = levels));
 
     this.form.valueChanges.subscribe(() => {
-      this.earnedAmount = this.calculateEarning(this.levels);
+      this.addEarningStore.updatEarnedAmount(this.form.getRawValue());
     });
   }
 
   public onSubmit() {
-    if (!this.form.valid || !this.earnedAmount) return;
+    if (!this.form.valid || !this.addEarningStore.earnedAmount()) {
+      return;
+    }
 
-    const record: WorkEntry = {
-      ...this.form.value,
-      earnedAmount: this.earnedAmount,
-    };
-
-    const operation$ = this._isUpdated
-      ? this._workEntryService.updateEntry$(this._entryId, record)
-      : this._workEntryService.addWorkEntry$(record);
-
-    this._handleSaveOperation(operation$, record.kidName);
-  }
-
-  private _handleSaveOperation(operation$: Observable<void>, kidName: string) {
-    operation$.pipe(takeUntilDestroyed(this._destroy)).subscribe({
-      next: () => {
-        this._toastService.success('✅ Work entry saved successfully!');
-        this._router.navigate(['/kids', kidName, 'balance']);
-        this.form.reset();
-        this.earnedAmount = 0;
-      },
-      error: () => {
-        this._toastService.error(`❌ Failed to ${this._isUpdated ? 'update' : 'save'} entry`);
-      },
-    });
-  }
-
-  private calculateEarning(levels: SalaryLevel[]): number {
-    const { minutes, salaryLevel } = this.form.value;
-    const level = levels.find((l) => l.name === salaryLevel);
-
-    return level ? level.ratePerMinute * minutes : 0;
-  }
-
-  private loadEntryForEdit(kidName: string, entryId: number) {
-    this._workEntryService
-      .getEntryById$(kidName, entryId)
-      .pipe(takeUntilDestroyed(this._destroy))
-      .subscribe((entry) => {
-        this.form.patchValue(entry);
-      });
+    this.addEarningStore.addOrUpdateWorkEntry(this.form.value);
+    this.form.reset();
+    this.addEarningStore.resetearnedAmount();
   }
 }
