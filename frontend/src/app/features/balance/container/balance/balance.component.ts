@@ -1,13 +1,14 @@
-import { Component, OnInit, inject, DestroyRef, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, DestroyRef, effect, inject, input, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { EarningService } from '../../../earning/services/earning.service';
 import { WorkEntry } from '../../../earning/modals/earning.model';
-import { forkJoin, map } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { BalanceTableComponent } from '../../presentational/balance-table/balance-table.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SpendingService } from '../../../spending/services/spending.service';
 import { SpendingEntry } from '../../../spending/modals/spending.modals';
+import { BalanceStore } from './balance.store';
 
 @Component({
   selector: 'app-balance',
@@ -15,14 +16,16 @@ import { SpendingEntry } from '../../../spending/modals/spending.modals';
   imports: [ReactiveFormsModule, BalanceTableComponent],
 })
 export class BalanceComponent implements OnInit {
-  private _route = inject(ActivatedRoute);
   private _router = inject(Router);
   private _earningService = inject(EarningService);
   private _spendingService = inject(SpendingService);
   private _fb = inject(FormBuilder);
   private _destroyRef = inject(DestroyRef);
 
-  public kidName = signal('');
+  public balanceStore = inject(BalanceStore);
+
+  public kidName = input('');
+
   public earningList = signal<WorkEntry[]>([]);
   public spendingList = signal<SpendingEntry[]>([]);
   public totalMinutes = signal(0);
@@ -34,13 +37,19 @@ export class BalanceComponent implements OnInit {
     kidNameInput: ['', Validators.required],
   });
 
+  public constructor() {
+    effect(() => {
+      const name = this.balanceStore.kidName();
+
+      if (name) {
+        this.balanceStore.loadKidsBalance();
+      }
+    });
+  }
+
   public ngOnInit() {
-    const routeKidName = this._route.snapshot.paramMap.get('kidName');
-
-    if (routeKidName) {
-      this.kidName.set(routeKidName);
-
-      this.loadKidHistory(routeKidName);
+    if (this.kidName()) {
+      this.balanceStore.setKidName(this.kidName());
     }
   }
 
@@ -48,8 +57,7 @@ export class BalanceComponent implements OnInit {
     if (this.searchForm.valid) {
       const name = this.searchForm.value.kidNameInput!;
 
-      this.kidName.set(name);
-      this.loadKidHistory(name);
+      this.balanceStore.setKidName(name);
     }
   }
 

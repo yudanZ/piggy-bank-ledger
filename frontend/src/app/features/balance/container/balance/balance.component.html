@@ -1,24 +1,24 @@
 <div class="container mt-4">
-  @if (!kidName()) {
+  @if (!balanceStore.kidName()) {
     <div class="card p-4 mb-4">
       <h4>Search Kid's Balance</h4>
 
       <form [formGroup]="searchForm" (ngSubmit)="submitSearch()">
         <div class="mb-3">
-          <input class="form-control" placeholder="Enter kid's name" formControlName="kidNameInput" />
+          <input class="form-control" placeholder="Enter kid's name" formControlName="kidNameInput"/>
         </div>
         <button class="btn btn-primary" [disabled]="searchForm.invalid">Search</button>
       </form>
     </div>
   } @else {
     <app-balance-table
-      [kidName]="kidName()"
-      [earningList]="earningList()"
-      [spendingList]="spendingList()"
-      [totalMinutes]="totalMinutes()"
-      [totalEarned]="totalEarned()"
-      [totalSpent]="totalSpent()"
-      [balance]="balance()"
+      [kidName]="balanceStore.kidName()"
+      [earningList]="balanceStore.earningList()"
+      [spendingList]="balanceStore.spendingList()"
+      [totalMinutes]="balanceStore.totalMinutes()"
+      [totalEarned]="balanceStore.totalEarned()"
+      [totalSpent]="balanceStore.totalSpent()"
+      [balance]="balanceStore.balance()"
       (editEarning)="onEditEarning($event)"
       (deleteEarning)="onDeleteEarning($event)"
       (editSpending)="onEditSpending($event)"

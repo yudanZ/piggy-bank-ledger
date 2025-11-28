@@ -110,10 +110,7 @@ export const AddEarningStore = signalStore(
             exhaustMap(({ kidName, entryId }) =>
               earningService.getEntryById$(kidName, +entryId).pipe(
                 tapResponse({
-                  next: (workEntry: WorkEntry) => {
-                    console.log('loaded work entry', workEntry);
-                    patchState(store, { workEntry: workEntry });
-                  },
+                  next: (workEntry: WorkEntry) => patchState(store, { workEntry: workEntry }),
                   error: (error: Error) => {
                     toastService.error(error.message);
                   },

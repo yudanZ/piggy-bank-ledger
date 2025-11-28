@@ -72,13 +72,23 @@
     },
     {
       "kidName": "Yoyo",
-      "task": "some task1111222",
+      "task": "some task1111",
       "minutes": 30,
       "salaryLevel": "Secondary",
       "date": "2025-11-20",
       "earnedAmount": 10.5,
       "id": 1764336048105,
       "createdAt": "2025-11-28T13:20:48.105Z"
+    },
+    {
+      "kidName": "Yoyo",
+      "task": "aaaa",
+      "minutes": 55,
+      "salaryLevel": "Secondary",
+      "date": "2025-11-26",
+      "earnedAmount": 19.25,
+      "id": 1764344597372,
+      "createdAt": "2025-11-28T15:43:17.372Z"
     }
   ]
 }
